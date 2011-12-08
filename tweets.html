@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Tweets</title>
+<script src="http://code.jquery.com/jquery-1.6.4.min.js" type="text/javascript" language="javascript"></script>
+</head>
+
+<body>
+<ul id="tweets"></ul>
+  <script type="text/javascript" language="Javascript">
+  var tweet_list = $('#tweets');
+  
+  function load_tweets() {
+    $.getJSON('/stream', function(tweets){
+      $.each(tweets, function(){
+        $('<li>').html(this.text).prependTo(tweet_list)
+      });
+      load_tweets();
+    });
+  }
+  
+  setTimeout(load_tweets, 1000);
+  </script>
+</body>
+
+</html>
